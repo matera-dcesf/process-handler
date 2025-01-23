@@ -9,6 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.Random;
 
 @Component
 public class ActivityProducer {
@@ -16,7 +17,8 @@ public class ActivityProducer {
     @Value("${topic.activity}")
     private String activityTopic;
 
-    private static final int PARTITION = 0;
+    @Value("${topic.partition:3}")
+    private int partitions;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -28,7 +30,7 @@ public class ActivityProducer {
         String data = objectMapper.writeValueAsString(activity);        ;
         System.out.println(MessageFormat.format("Sending activity {0} from process {1} to topic {2}",
                 activity.activityName(), activity.processName(), activityTopic));
-        kafkaTemplate.send(activityTopic, PARTITION, null, data);
+        kafkaTemplate.send(activityTopic,  new Random().nextInt(partitions),null, data);
     }
 
 }

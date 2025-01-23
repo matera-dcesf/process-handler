@@ -1,6 +1,7 @@
 package com.matera.eod.config;
 
 import com.matera.eod.record.ActivityRecord;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;

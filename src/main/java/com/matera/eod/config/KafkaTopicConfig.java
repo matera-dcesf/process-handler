@@ -30,7 +30,7 @@ public class KafkaTopicConfig {
     @Value("${topic.activity.result}")
     private String activityResultTopic;
 
-    @Value("${topic.partition:1}")
+    @Value("${topic.partition:3}")
     private int partitions;
 
     @Value("${topic.replicas:1}")

@@ -31,12 +31,13 @@ public class KafkaConsumerConfig {
     @Value("${topic.processing.group.id.config}")
     private String processingGroupId;
 
-    public ConsumerFactory<String, String> consumerFactory() {
+   public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,  kafkaAddress);
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, processingGroupId);
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+       properties.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, false);
         return new DefaultKafkaConsumerFactory<>(properties);
     }
 
